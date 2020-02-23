@@ -341,8 +341,59 @@
                     }
                 }
             },
+
             //Table Storage,
+            {
+                "name": "string",
+                "type": "Microsoft.StreamAnalytics/streamingjobs/outputs",
+                "properties": {
+                    "datasource": {
+                        "type": "Microsoft.Storage/Table",
+                        "properties": {
+                            "accountName": "string",
+                            "accountKey": "string",
+                            "table": "string",
+                            "partitionKey": "string",
+                            "rowKey": "string",
+                            "columnsToRemove": [
+                                "string"
+                            ],
+                            "batchSize": integer
+                        }
+                    },
+                    "serialization": {
+                        "type": "<Type of serialization as string>",
+                        "properties": {
+                            "encoding" : "<encoding type as string>",
+                            "format" : "<serialization format as string >"
+                        }
+                    }
+                }
+            },
+
             //Service Bus Queues,
+            {
+                "name": "string",
+                "type": "Microsoft.StreamAnalytics/streamingjobs/outputs",
+                "properties": {
+                    "datasource": {
+                        "type": "Microsoft.ServiceBus/Queue",
+                        "properties": {
+                            "queueName": "string",
+                            "propertyColumns": [
+                                "string"
+                            ]
+                        }
+                    },
+                    "serialization": {
+                        "type": "<Type of serialization as string>",
+                        "properties": {
+                            "encoding" : "<encoding type as string>",
+                            "format" : "<serialization format as string >"
+                        }
+                    }
+                }
+            },
             //Cosmos DB,
             //Azure Functions,
             
