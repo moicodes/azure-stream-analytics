@@ -220,40 +220,42 @@
                 }
             },
             "outputs": [
-                {
-                    "name": "string",
-                    "type": "Microsoft.StreamAnalytics/streamingjobs/outputs",
-                    "properties": {
-                        "datasource": {
-                            "type": "string",
-                            "properties": {}
-                        },
-                        "serialization": {
-                            "type": "<Type of serialization as string>",
-                            "properties": {
-                                "encoding" : "<encoding type as string>",
-                                "format" : "<serialization format as string >"
-                            }
+            {
+                "name": "string",
+                "type": "Microsoft.StreamAnalytics/streamingjobs/outputs",
+                "properties": {
+                    "datasource": {
+                        "type": "string",
+                        "properties": {}
+                    },
+                    "serialization": {
+                        "type": "<Type of serialization as string>",
+                        "properties": {
+                            "encoding" : "<encoding type as string>",
+                            "format" : "<serialization format as string >"
                         }
                     }
-                },
+                }
+            },
             
-            //ADLS Gen 1
+            //Blob Storage
             {
                 "name": "string",
                 "type": "Microsoft.StreamAnalytics/streamingjobs/outputs",
                 "properties": {
                     "datasource": {
-                        "type": "Microsoft.DataLake/Accounts",
+                        "type": "Microsoft.Storage/Blob",
                         "properties": {
-                            "refreshToken": "string",
-                            "tokenUserPrincipalName": "string",
-                            "tokenUserDisplayName": "string",
-                            "accountName": "string",
-                            "tenantId": "string",
-                            "filePathPrefix": "string",
+                            "storageAccounts": [
+                                {
+                                    "accountName": "string",
+                                    "accountKey": "string"    
+                                }
+                            ],
+                            "container": "string",
+                            "pathPattern": "string",
                             "dateFormat": "string",
-                            "timeFormat": "string"
+                            "timeFormat": "string",
                         }
                     },
                     "serialization": {
@@ -265,21 +267,24 @@
                     }
                 }
             },
-            //
-            //SQL,
-            //ARM Defintion https://docs.microsoft.com/en-us/azure/templates/microsoft.streamanalytics/2016-03-01/streamingjobs#microsoftsqlserverdatabase
+
+            //Table Storage
             {
                 "name": "string",
                 "type": "Microsoft.StreamAnalytics/streamingjobs/outputs",
                 "properties": {
                     "datasource": {
-                        "type": "Microsoft.Sql/Server/Database",
+                        "type": "Microsoft.Storage/Table",
                         "properties": {
-                            "server": "string",
-                            "database": "string",
-                            "user": "string",
-                            "password": "string",
-                            "table": "string"
+                            "accountName": "string",
+                            "accountKey": "string",
+                            "table": "string",
+                            "partitionKey": "string",
+                            "rowKey": "string",
+                            "columnsToRemove": [
+                                "string"
+                            ],
+                            "batchSize": integer
                         }
                     },
                     "serialization": {
@@ -291,6 +296,7 @@
                     }
                 }
             },
+
             //Event Hub,
             {
                 "name": "string",
@@ -315,21 +321,21 @@
                     }
                 }
             },
-            //Power BI,
+
+            //SQL,
+            //ARM Defintion https://docs.microsoft.com/en-us/azure/templates/microsoft.streamanalytics/2016-03-01/streamingjobs#microsoftsqlserverdatabase
             {
                 "name": "string",
                 "type": "Microsoft.StreamAnalytics/streamingjobs/outputs",
                 "properties": {
                     "datasource": {
-                        "type": "PowerBI",
+                        "type": "Microsoft.Sql/Server/Database",
                         "properties": {
-                            "refreshToken": "string",
-                            "tokenUserPrincipalName": "string",
-                            "tokenUserDisplayName": "string",
-                            "dataset": "string",
-                            "table": "string",
-                            "groupId": "string",
-                            "groupName": "string"
+                            "server": "string",
+                            "database": "string",
+                            "user": "string",
+                            "password": "string",
+                            "table": "string"
                         }
                     },
                     "serialization": {
@@ -423,6 +429,85 @@
             },
 
             //Cosmos DB,
+            {
+                "name": "string",
+                "type": "Microsoft.StreamAnalytics/streamingjobs/outputs",
+                "properties": {
+                    "datasource": {
+                        "type": "Microsoft.Storage/DocumentDB",
+                        "properties": {
+                            "accountId": "string",
+                            "accountKey": "string",
+                            "database": "string",
+                            "collectionNamePattern": "string",
+                            "partitionKey": "string",
+                            "documentId": "string"
+                        }
+                    },
+                    "serialization": {
+                        "type": "<Type of serialization as string>",
+                        "properties": {
+                            "encoding" : "<encoding type as string>",
+                            "format" : "<serialization format as string >"
+                        }
+                    }
+                }
+            },
+
+            //Power BI,
+            {
+                "name": "string",
+                "type": "Microsoft.StreamAnalytics/streamingjobs/outputs",
+                "properties": {
+                    "datasource": {
+                        "type": "PowerBI",
+                        "properties": {
+                            "refreshToken": "string",
+                            "tokenUserPrincipalName": "string",
+                            "tokenUserDisplayName": "string",
+                            "dataset": "string",
+                            "table": "string",
+                            "groupId": "string",
+                            "groupName": "string"
+                        }
+                    },
+                    "serialization": {
+                        "type": "<Type of serialization as string>",
+                        "properties": {
+                            "encoding" : "<encoding type as string>",
+                            "format" : "<serialization format as string >"
+                        }
+                    }
+                }
+            },
+
+            //ADLS Gen 1
+            {
+                "name": "string",
+                "type": "Microsoft.StreamAnalytics/streamingjobs/outputs",
+                "properties": {
+                    "datasource": {
+                        "type": "Microsoft.DataLake/Accounts",
+                        "properties": {
+                            "refreshToken": "string",
+                            "tokenUserPrincipalName": "string",
+                            "tokenUserDisplayName": "string",
+                            "accountName": "string",
+                            "tenantId": "string",
+                            "filePathPrefix": "string",
+                            "dateFormat": "string",
+                            "timeFormat": "string"
+                        }
+                    },
+                    "serialization": {
+                        "type": "<Type of serialization as string>",
+                        "properties": {
+                            "encoding" : "<encoding type as string>",
+                            "format" : "<serialization format as string >"
+                        }
+                    }
+                }
+            },
             //Azure Functions,
             
             ],
