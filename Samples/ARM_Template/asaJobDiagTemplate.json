@@ -1,0 +1,357 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0",
+    "apiProfile": "",
+    "parameters": {
+        "asaJobName":{
+            "type" : "string"
+        },
+        "diagLogName":{
+            "type" : "string"
+        },
+        "logAnalyticsWorkspaceName" : {
+            "type" : "string"
+        },
+        "location" :{
+            "type" : "string"
+        },
+        "storageAccountName" : {
+            "type": "string"
+        },
+        "eventHubAuthorizationRuleId" : {
+            "type" : "string"
+        },
+        "eventHubName" : {
+            "type" : "string"
+        }
+
+    },
+    "variables": {},
+    "functions": [],
+    "resources": [{
+        "name": "string",
+        "type": "Microsoft.StreamAnalytics/streamingjobs",
+        "apiVersion": "2016-03-01",
+        "location": "string",
+        "tags": {},
+        "properties": {
+            "sku": {
+                "name": "Standard"
+            },
+            "outputStartMode": "string",
+            "outputStartTime": "string",
+            "eventsOutOfOrderPolicy": "string",
+            "outputErrorPolicy": "string",
+            "eventsOutOfOrderMaxDelayInSeconds": "integer",
+            "eventsLateArrivalMaxDelayInSeconds": "integer",
+            "dataLocale": "string",
+            "compatibilityLevel": "1.0",
+            "inputs": [{
+                "name": "string",
+                "properties": {
+                    "type": "string",
+                    "datasource": {
+                        "type": "string",
+                        "properties": {}
+                    },
+                    "serialization": {
+                        "type": "string",
+                        "properties": {}
+                    }
+                }
+            },
+            //sample definition for streaming Blob Input
+            //https://docs.microsoft.com/en-us/azure/stream-analytics/stream-analytics-define-inputs#configure-blob-storage-as-a-stream-input
+            //https://docs.microsoft.com/en-us/azure/templates/microsoft.streamanalytics/2016-03-01/streamingjobs/inputs#streaminputdatasourceproperties
+            {
+                "name" : "<alias of output for use in query>",
+                "type" : "Microsoft.StreamAnalytics/streamingjobs/inputs",
+                "properties" : {
+                    "type": "Stream",
+                    "datasource": {
+                        "type": "Microsoft.Storage/Blob",
+                        "properties": {
+                            "storageAccounts": [
+                                {
+                                    "accountName": "<Storage account name as string>",
+                                    "accountKey": "<Storage account key as string>"    
+                                }
+                            ],
+                            "container": "<container name as string>",
+                            "pathPattern": "<input path pattern as string>",
+                            "dateFormat": "<date format as string>",
+                            "timeFormat": "<time format as string>",
+                            "sourcePartitionCount": "<partition count as int>"
+                        }
+                    },
+                    "serialization": {
+                        "type": "<Type of serialization as string>",
+                        "properties": {
+                            "encoding" : "<encoding type as string>",
+                            "format" : "<serialization format as string >"
+                        }
+                    }
+                }
+            },
+            
+            //Sample definition for streaming Event Hub Input
+            //https://docs.microsoft.com/en-us/azure/templates/microsoft.streamanalytics/2016-03-01/streamingjobs/inputs#microsoftservicebuseventhub
+            //https://docs.microsoft.com/en-us/azure/templates/microsoft.streamanalytics/2016-03-01/streamingjobs/inputs#microsoftservicebuseventhub
+            {
+                "name" : "<alias of output for use in query>",
+                "type" : "Microsoft.StreamAnalytics/streamingjobs/inputs",
+                "properties" : {
+                    "type": "Stream",
+                    "datasource": {
+                        "type": "Microsoft.ServiceBus/EventHub",
+                        "properties": {
+                            "serviceBusNamespace": "<service bus namespace name as string>",
+                            "sharedAccessPolicyName": "<SAS policy name as string>",
+                            "sharedAccessPolicyKey": "<SAS policy key as string>",
+                            "eventHubName": "<event hub name as string>",
+                            "consumerGroupName": "<consumer group name as string>"
+                        }
+                    },
+                    "serialization": {
+                        "type": "<Type of serialization as string>",
+                        "properties": {
+                            "encoding" : "<encoding type as string>",
+                            "format" : "<serialization format as string >"
+                        }
+                    }
+                }
+            },
+            //Sample definition for streaming IoT Hub Input
+            //https://docs.microsoft.com/en-us/azure/stream-analytics/stream-analytics-define-inputs#configure-an-iot-hub-as-a-data-stream-input
+            //https://docs.microsoft.com/en-us/azure/templates/microsoft.streamanalytics/2016-03-01/streamingjobs/inputs#microsoftdevicesiothubs
+            {
+                "name" : "<alias of output for use in query>",
+                "type" : "Microsoft.StreamAnalytics/streamingjobs/inputs",
+                "properties" : {
+                    "type": "Stream",
+                    "datasource": {
+                        "type": "Microsoft.Devices/IotHubs",
+                        "properties": {
+                            "iotHubNamespace": "<IoT Hub Namespace name as string>",
+                            "sharedAccessPolicyName": "<SAS policy name as string>",
+                            "sharedAccessPolicyKey": "<SAS policy key as string>",
+                            "consumerGroupName": "<Consumger Group name as string>",
+                            "endpoint": "<endpoint name as string>"
+                        }
+                    },
+                    "serialization": {
+                        "type": "<Type of serialization as string>",
+                        "properties": {
+                            "encoding" : "<encoding type as string>",
+                            "format" : "<serialization format as string >"
+                        }
+                    }
+                }
+            },
+            //Sample definition for reference Blob input.
+            //https://docs.microsoft.com/en-us/azure/templates/microsoft.streamanalytics/2016-03-01/streamingjobs/inputs#referenceinputdatasourceproperties
+            //https://docs.microsoft.com/en-us/azure/stream-analytics/stream-analytics-use-reference-data#azure-blob-storage
+            {
+                "name" : "<alias of output for use in query>",
+                "type" : "Microsoft.StreamAnalytics/streamingjobs/inputs",
+                "properties" : {
+                    "type": "Reference",
+                    "datasource": {
+                        "type": "Microsoft.Storage/Blob",
+                        "properties": {
+                            "storageAccounts": [
+                                {
+                                    "accountName": "<storage account name as string>",
+                                    "accountKey": "<account key as string>"    
+                                }
+                            ],
+                            "container": "<container name as string>",
+                            "pathPattern": "<input path pattern as string>",
+                            "dateFormat": "<date format as string>",
+                            "timeFormat": "<time format as string>"
+                        }
+                    },
+                    "serialization": {
+                        "type": "<Type of serialization as string>",
+                        "properties": {
+                            "encoding" : "<encoding type as string>",
+                            "format" : "<serialization format as string >"
+                        }
+                    }
+                }
+            },
+            //sample definition for reference SQL
+            //get a version of this
+            {
+                "name" : "<alias of output for use in query>",
+                "type" : "Microsoft.StreamAnalytics/streamingjobs/inputs",
+                "properties" : {
+                    "type": "Reference",
+                    "datasource": {
+                        "type": "Microsoft.Sql/Server/Database",
+                        "properties": {
+                            "fullSnapshotQuery": "<snapshot query as string>",
+                            "refreshType": "<Refresh type as string>",
+                            "refreshRate": "<Refresh rate as string>",
+                            "server": "<server address as string>",
+                            "database": "<DB name as string>",
+                            "user": "<Username as string>",
+                            "password": "<Password as string>"
+                        }
+                    },
+                    "compression": {
+                        "type": "<compression type as string>"
+                    },
+                    "serialization": {
+                        "type": "<Type of serialization as string>",
+                        "properties": {
+                            "encoding" : "<encoding type as string>",
+                            "format" : "<serialization format as string >"
+                        }
+                    }
+                }
+            }
+            ],
+            "transformation": {
+                "name": "string",
+                "properties": {
+                    "streamingUnits": "<NoF streaming units as int>",
+                    "query": "<SAQL Query goes here>"
+                }
+            },
+            "outputs": [
+                {
+                    "name": "string",
+                    "type": "Microsoft.StreamAnalytics/streamingjobs/outputs",
+                    "properties": {
+                        "datasource": {
+                            "type": "string",
+                            "properties": {}
+                        },
+                        "serialization": {
+                            "type": "<Type of serialization as string>",
+                            "properties": {
+                                "encoding" : "<encoding type as string>",
+                                "format" : "<serialization format as string >"
+                            }
+                        }
+                    }
+                },
+            
+            //ADLS Gen 1
+            {
+                "name": "string",
+                "type": "Microsoft.StreamAnalytics/streamingjobs/outputs",
+                "properties": {
+                    "datasource": {
+                        "type": "Microsoft.DataLake/Accounts",
+                        "properties": {
+                            "refreshToken": "string",
+                            "tokenUserPrincipalName": "string",
+                            "tokenUserDisplayName": "string",
+                            "accountName": "string",
+                            "tenantId": "string",
+                            "filePathPrefix": "string",
+                            "dateFormat": "string",
+                            "timeFormat": "string"
+                        }
+                    },
+                    "serialization": {
+                        "type": "<Type of serialization as string>",
+                        "properties": {
+                            "encoding" : "<encoding type as string>",
+                            "format" : "<serialization format as string >"
+                        }
+                    }
+                }
+            },
+            //,
+            //ADLs Gen 1,
+            //SQL,
+            //Event Hub,
+            {
+                "name": "string",
+                "type": "Microsoft.StreamAnalytics/streamingjobs/outputs",
+                "properties": {
+                    "datasource": {
+                        "type": "Microsoft.DataLake/Accounts",
+                        "properties": {
+                            "refreshToken": "string",
+                            "tokenUserPrincipalName": "string",
+                            "tokenUserDisplayName": "string",
+                            "accountName": "string",
+                            "tenantId": "string",
+                            "filePathPrefix": "string",
+                            "dateFormat": "string",
+                            "timeFormat": "string"
+                        }
+                    },
+                    "serialization": {
+                        "type": "<Type of serialization as string>",
+                        "properties": {
+                            "encoding" : "<encoding type as string>",
+                            "format" : "<serialization format as string >"
+                        }
+                    }
+                }
+            },
+            //Power BI,
+            //Table Storage,
+            //Service Bus Queues,
+            //Cosmos DB,
+            //Azure Functions,
+            
+            ],
+            "functions": [{
+                "name": "string",
+                "properties": {
+                    "type": "Scalar",
+                    "properties": {
+                        "inputs": [{
+                            "dataType": "string",
+                            "isConfigurationParameter": boolean
+                        }],
+                        "output": {
+                            "dataType": "string"
+                        },
+                        "binding": {
+                            "type": "string",
+                            "properties": {}
+                        }
+                    }
+                }
+            }]
+        }
+    }, 
+    //end Stream Job Definition
+    //Start Diagnostic Log Definition
+    {
+        "type": "microsoft.streamanalytics/streamingjobs/providers/diagnosticSettings",
+        "apiVersion": "2017-05-01-preview",
+        "name": "[concat(parameters('asaJobName'), '/microsoft.insights/', parameters('diagLogName'))]",
+        "dependsOn": [
+            "[<resource Id for which resource logs will be enabled>]"
+          ],
+        "location": "[parameters('location')]",
+        "properties": {
+            "name": "[parameters('diagLogName')]",
+            "storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]",
+            "eventHubAuthorizationRuleId": "[parameters('eventHubAuthorizationRuleId')]",
+            "eventHubName": "[parameters('eventHubName')]",
+            "workspaceId": "[parameters('logAnalyticsWorkspaceName')]",
+            "logs": [
+              {
+                "category": "<category name>",
+                "enabled": true
+              }
+            ],
+            "metrics": [
+              {
+                "category": "AllMetrics",
+                "enabled": true
+              }
+            ]
+        }
+    }],
+    "outputs": {}
+}
