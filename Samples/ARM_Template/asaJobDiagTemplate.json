@@ -181,7 +181,7 @@
                 }
             },
             //sample definition for reference SQL
-            //get a version of this
+
             {
                 "name" : "<alias of output for use in query>",
                 "type" : "Microsoft.StreamAnalytics/streamingjobs/inputs",
@@ -265,9 +265,32 @@
                     }
                 }
             },
-            //,
-            //ADLs Gen 1,
+            //
             //SQL,
+            //ARM Defintion https://docs.microsoft.com/en-us/azure/templates/microsoft.streamanalytics/2016-03-01/streamingjobs#microsoftsqlserverdatabase
+            {
+                "name": "string",
+                "type": "Microsoft.StreamAnalytics/streamingjobs/outputs",
+                "properties": {
+                    "datasource": {
+                        "type": "Microsoft.Sql/Server/Database",
+                        "properties": {
+                            "server": "string",
+                            "database": "string",
+                            "user": "string",
+                            "password": "string",
+                            "table": "string"
+                        }
+                    },
+                    "serialization": {
+                        "type": "<Type of serialization as string>",
+                        "properties": {
+                            "encoding" : "<encoding type as string>",
+                            "format" : "<serialization format as string >"
+                        }
+                    }
+                }
+            },
             //Event Hub,
             {
                 "name": "string",
