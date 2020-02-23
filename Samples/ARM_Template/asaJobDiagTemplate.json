@@ -508,7 +508,31 @@
                     }
                 }
             },
-            //Azure Functions,
+
+            //Azure Functions
+            {
+                "name": "string",
+                "type": "Microsoft.StreamAnalytics/streamingjobs/outputs",
+                "properties": {
+                    "datasource": {
+                        "type": "Microsoft.AzureFunction",
+                        "properties": {
+                            "functionAppName": "string",
+                            "functionName": "string",
+                            "apiKey": "string",
+                            "maxBatchSize": "string",
+                            "maxBatchCount": "string"
+                        }
+                    },
+                    "serialization": {
+                        "type": "<Type of serialization as string>",
+                        "properties": {
+                            "encoding" : "<encoding type as string>",
+                            "format" : "<serialization format as string >"
+                        }
+                    }
+                }
+            }
             
             ],
             "functions": [{
