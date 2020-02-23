@@ -394,6 +394,34 @@
                     }
                 }
             },
+
+            //Service Bus Topics
+            {
+                "name": "string",
+                "type": "Microsoft.StreamAnalytics/streamingjobs/outputs",
+                "properties": {
+                    "datasource": {
+                        "type": "Microsoft.ServiceBus/Topic",
+                        "properties": {
+                            "serviceBusNamespace": "string",
+                            "sharedAccessPolicyName": "string",
+                            "sharedAccessPolicyKey": "string",
+                            "topicName": "string",
+                            "propertyColumns": [
+                                "string"
+                            ]
+                        }
+                    },
+                    "serialization": {
+                        "type": "<Type of serialization as string>",
+                        "properties": {
+                            "encoding" : "<encoding type as string>",
+                            "format" : "<serialization format as string >"
+                        }
+                    }
+                }
+            },
+
             //Cosmos DB,
             //Azure Functions,
             
