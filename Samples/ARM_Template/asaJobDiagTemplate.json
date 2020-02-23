@@ -297,16 +297,13 @@
                 "type": "Microsoft.StreamAnalytics/streamingjobs/outputs",
                 "properties": {
                     "datasource": {
-                        "type": "Microsoft.DataLake/Accounts",
+                        "type": "Microsoft.ServiceBus/EventHub",
                         "properties": {
-                            "refreshToken": "string",
-                            "tokenUserPrincipalName": "string",
-                            "tokenUserDisplayName": "string",
-                            "accountName": "string",
-                            "tenantId": "string",
-                            "filePathPrefix": "string",
-                            "dateFormat": "string",
-                            "timeFormat": "string"
+                            "serviceBusNamespace": "string",
+                            "sharedAccessPolicyName": "string",
+                            "sharedAccessPolicyKey": "string",
+                            "eventHubName": "string",
+                            "partitionKey": "string"
                         }
                     },
                     "serialization": {
@@ -319,6 +316,31 @@
                 }
             },
             //Power BI,
+            {
+                "name": "string",
+                "type": "Microsoft.StreamAnalytics/streamingjobs/outputs",
+                "properties": {
+                    "datasource": {
+                        "type": "PowerBI",
+                        "properties": {
+                            "refreshToken": "string",
+                            "tokenUserPrincipalName": "string",
+                            "tokenUserDisplayName": "string",
+                            "dataset": "string",
+                            "table": "string",
+                            "groupId": "string",
+                            "groupName": "string"
+                        }
+                    },
+                    "serialization": {
+                        "type": "<Type of serialization as string>",
+                        "properties": {
+                            "encoding" : "<encoding type as string>",
+                            "format" : "<serialization format as string >"
+                        }
+                    }
+                }
+            },
             //Table Storage,
             //Service Bus Queues,
             //Cosmos DB,
